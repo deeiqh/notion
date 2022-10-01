@@ -1,4 +1,11 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  ParseIntPipe,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CreateAssignmentDto } from 'src/utils/dtos/create-assignment.dto';
 import { CreateChallengeDto } from 'src/utils/dtos/create-challenge.dto';
 import { CreateCommentDto } from 'src/utils/dtos/create-comment.dto';

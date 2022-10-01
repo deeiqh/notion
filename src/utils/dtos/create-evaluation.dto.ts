@@ -1,4 +1,4 @@
 export class CreateEvaluationDto {
-  score: number;
-  maxScore: number;
+  score: string;
+  maxScore: string;
 }

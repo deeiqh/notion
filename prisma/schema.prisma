@@ -38,7 +38,7 @@ model Module {
   user User[]
   program Program[]
   week Week[]
-  isCompleted Boolean
+  isCompleted Boolean @default(false)
   evaluationId String @unique
   title String
   description String
@@ -52,7 +52,7 @@ model Week {
   name String
   theme Theme[]
   feeback Feedback[]
-  isCompleted Boolean
+  isCompleted Boolean @default(false)
   challengeId String @unique
 
   module Module @relation(fields: [moduleId], references: [uuid])
@@ -70,9 +70,9 @@ model Challenge {
 
 model Evaluation {
   uuid String @id() @default(uuid())
-  weight Int? @default(1)
-  score Int?
-  maxScore Int?
+  weight String?  
+  score String?
+  maxScore String?
   feedback Feedback[]
 
   module Module?

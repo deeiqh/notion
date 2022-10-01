@@ -26,7 +26,7 @@ CREATE TABLE "Program" (
 -- CreateTable
 CREATE TABLE "Module" (
     "uuid" TEXT NOT NULL,
-    "isCompleted" BOOLEAN NOT NULL,
+    "isCompleted" BOOLEAN NOT NULL DEFAULT false,
     "evaluationId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE "Week" (
     "uuid" TEXT NOT NULL,
     "moduleId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "isCompleted" BOOLEAN NOT NULL,
+    "isCompleted" BOOLEAN NOT NULL DEFAULT false,
     "challengeId" TEXT NOT NULL,
 
     CONSTRAINT "Week_pkey" PRIMARY KEY ("uuid")
@@ -56,9 +56,9 @@ CREATE TABLE "Challenge" (
 -- CreateTable
 CREATE TABLE "Evaluation" (
     "uuid" TEXT NOT NULL,
-    "weight" INTEGER DEFAULT 1,
-    "score" INTEGER,
-    "maxScore" INTEGER,
+    "weight" TEXT,
+    "score" TEXT,
+    "maxScore" TEXT,
 
     CONSTRAINT "Evaluation_pkey" PRIMARY KEY ("uuid")
 );

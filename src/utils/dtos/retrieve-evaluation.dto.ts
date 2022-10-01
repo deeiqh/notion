@@ -4,9 +4,9 @@ import { RetrieveFeedbackDto } from './retrieve-feedback.dto';
 
 export class RetrieveEvaluationDto {
   uuid: string;
-  weight: number;
-  score: number;
-  maxScore: number;
+  weight: string;
+  score: string;
+  maxScore: string;
   @Type(() => RetrieveFeedbackDto)
   feedback: Feedback[];
 }
