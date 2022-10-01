@@ -37,10 +37,10 @@ export class ManageService {
     });
   }
 
-  async getEvaluation(input: any) {
+  async getEvaluation(evaluationId: any) {
     const evaluation = await this.prisma.evaluation.findUnique({
       where: {
-        uuid: input.evaluationId,
+        uuid: evaluationId,
       },
     });
     return plainToInstance(RetrieveEvaluationDto, evaluation);
