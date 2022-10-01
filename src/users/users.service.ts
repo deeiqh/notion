@@ -114,7 +114,7 @@ export class UsersService {
     user.module.forEach((module) =>
       module.week.forEach((week) =>
         week.feeback.forEach((feedback) =>
-          plainToInstance(RetrieveFeedbackDto, feedback),
+          feedbacks.push(plainToInstance(RetrieveFeedbackDto, feedback)),
         ),
       ),
     );

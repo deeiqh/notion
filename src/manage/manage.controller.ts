@@ -14,9 +14,4 @@ export class ManageController {
   async moduleToProgram(@Body() input: any) {
     await this.managerService.moduleToProgram(input);
   }
-
-  @Post('feedbackToEvaluation')
-  async feedbackToEvaluation(@Body() input: any) {
-    await this.managerService.feedbackToEvaluation(input);
-  }
 }
