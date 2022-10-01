@@ -40,6 +40,7 @@ CREATE TABLE "Week" (
     "moduleId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "isCompleted" BOOLEAN NOT NULL,
+    "challengeId" TEXT NOT NULL,
 
     CONSTRAINT "Week_pkey" PRIMARY KEY ("uuid")
 );
@@ -122,6 +123,9 @@ CREATE TABLE "_ModuleToProgram" (
 CREATE UNIQUE INDEX "Module_evaluationId_key" ON "Module"("evaluationId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Week_challengeId_key" ON "Week"("challengeId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Challenge_evaluationId_key" ON "Challenge"("evaluationId");
 
 -- CreateIndex
@@ -150,6 +154,9 @@ ALTER TABLE "Module" ADD CONSTRAINT "Module_evaluationId_fkey" FOREIGN KEY ("eva
 
 -- AddForeignKey
 ALTER TABLE "Week" ADD CONSTRAINT "Week_moduleId_fkey" FOREIGN KEY ("moduleId") REFERENCES "Module"("uuid") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Week" ADD CONSTRAINT "Week_challengeId_fkey" FOREIGN KEY ("challengeId") REFERENCES "Challenge"("uuid") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Challenge" ADD CONSTRAINT "Challenge_evaluationId_fkey" FOREIGN KEY ("evaluationId") REFERENCES "Evaluation"("uuid") ON DELETE RESTRICT ON UPDATE CASCADE;

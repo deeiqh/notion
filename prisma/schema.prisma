@@ -23,7 +23,6 @@ model User {
   program Program @relation(fields: [programId], references: [uuid])
   feedbackFrom Feedback[] @relation("from")
   feedbackTo Feedback[] @relation("to")
-
 }
 
 model Program {
@@ -54,16 +53,19 @@ model Week {
   theme Theme[]
   feeback Feedback[]
   isCompleted Boolean
+  challengeId String @unique
 
   module Module @relation(fields: [moduleId], references: [uuid])
+  challenge Challenge @relation(fields: [challengeId], references: [uuid])
 }
 
 model Challenge {
   uuid String @id() @default(uuid())
   assignment Assignment[]
   evaluationId String @unique
-
+  
   evaluation Evaluation @relation(fields: [evaluationId], references: [uuid])
+  week Week?
 }
 
 model Evaluation {
