@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { RetrieveEvaluationDto } from 'src/utils/dtos/retrieve-evaluation.dto';
 
 @Injectable()
 export class ManageService {
@@ -34,4 +36,29 @@ export class ManageService {
       },
     });
   }
+
+  async getEvaluation(input: any) {
+    const evaluation = await this.prisma.evaluation.findUnique({
+      where: {
+        uuid: input.evaluationId,
+      },
+    });
+    return plainToInstance(RetrieveEvaluationDto, evaluation);
+  }
+
+  // async actualWeek(input: any) {
+  //   const module = await this.prisma.module.findUnique({
+  //     where: {
+  //       uuid: input.moduleId,
+  //     },
+  //     select: {
+  //       week: {
+  //         where: {
+  //           name: 'name',
+  //         },
+  //       },
+  //     },
+  //   });
+  //   return plain
+  // }
 }
