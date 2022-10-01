@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { RetrieveModuleDto } from 'src/modules/dtos/retrieve.dto';
 import { RetrieveFeedbackDto } from 'src/utils/dtos/retrieve-feedback.dto';
 import { CreateUserDto } from './dto/request/create.dto';
@@ -43,7 +43,7 @@ export class UsersController {
   }
 
   @Post()
-  async createUser(input: CreateUserDto): Promise<RetrieveUserDto> {
+  async createUser(@Body() input: CreateUserDto): Promise<RetrieveUserDto> {
     return await this.usersService.createUser(input);
   }
 }

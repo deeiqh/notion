@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { RetrieveChallengeDto } from 'src/utils/dtos/retrieve-challenge.dto';
 import { RetrieveFeedbackDto } from 'src/utils/dtos/retrieve-feedback.dto';
 import { RetrieveThemeDto } from 'src/utils/dtos/retrieve-theme.dto';
@@ -50,7 +50,9 @@ export class ModulesController {
   }
 
   @Post()
-  async createModule(input: CreateModuleDto): Promise<RetrieveModuleDto> {
+  async createModule(
+    @Body() input: CreateModuleDto,
+  ): Promise<RetrieveModuleDto> {
     return await this.modulesService.createModule(input);
   }
 }

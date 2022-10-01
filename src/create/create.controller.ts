@@ -1,4 +1,4 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { CreateAssignmentDto } from 'src/utils/dtos/create-assignment.dto';
 import { CreateChallengeDto } from 'src/utils/dtos/create-challenge.dto';
 import { CreateCommentDto } from 'src/utils/dtos/create-comment.dto';
@@ -21,42 +21,46 @@ export class CreateController {
 
   @Post('evaluation')
   async createEvaluation(
-    input: CreateEvaluationDto,
+    @Body() input: CreateEvaluationDto,
   ): Promise<RetrieveEvaluationDto> {
     return await this.createService.createEvaluation(input);
   }
 
   @Post('challenge')
   async createChallenge(
-    input: CreateChallengeDto,
+    @Body() input: CreateChallengeDto,
   ): Promise<RetrieveChallengeDto> {
     return await this.createService.createChallenge(input);
   }
 
   @Post('week')
-  async createWeek(input: CreateWeekDto): Promise<RetrieveWeekDto> {
+  async createWeek(@Body() input: CreateWeekDto): Promise<RetrieveWeekDto> {
     return await this.createService.createWeek(input);
   }
 
   @Post('feedback')
-  async createFeedback(input: createFeedbackDto): Promise<RetrieveFeedbackDto> {
+  async createFeedback(
+    @Body() input: createFeedbackDto,
+  ): Promise<RetrieveFeedbackDto> {
     return await this.createService.createFeedback(input);
   }
 
   @Post('theme')
-  async createTheme(input: CreateThemeDto): Promise<RetrieveThemeDto> {
+  async createTheme(@Body() input: CreateThemeDto): Promise<RetrieveThemeDto> {
     return await this.createService.createTheme(input);
   }
 
   @Post('assignment')
   async createAssignment(
-    input: CreateAssignmentDto,
+    @Body() input: CreateAssignmentDto,
   ): Promise<RetrieveAssignmentDto> {
     return await this.createService.createAssignment(input);
   }
 
   @Post('comment')
-  async createComment(input: CreateCommentDto): Promise<RetrieveCommentDto> {
+  async createComment(
+    @Body() input: CreateCommentDto,
+  ): Promise<RetrieveCommentDto> {
     return await this.createService.createComment(input);
   }
 }

@@ -29,6 +29,7 @@ export class ProgramsService {
   }
 
   async createProgram(input: CreateProgramDto): Promise<RetrieveProgramDto> {
+    console.log('AAAAAAAA', input);
     const program = await this.prisma.program.create({
       data: {
         ...input,

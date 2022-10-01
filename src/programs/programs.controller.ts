@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { RetrieveModuleDto } from 'src/modules/dtos/retrieve.dto';
 import { RetrieveProgramDto } from 'src/utils/dtos/retrieve-program.dto';
 import { CreateProgramDto } from './dtos/create.dto';
@@ -16,7 +16,9 @@ export class ProgramsController {
   }
 
   @Post()
-  async createProgram(input: CreateProgramDto): Promise<RetrieveProgramDto> {
+  async createProgram(
+    @Body() input: CreateProgramDto,
+  ): Promise<RetrieveProgramDto> {
     return await this.programsService.createProgram(input);
   }
 }
