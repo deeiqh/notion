@@ -5,6 +5,8 @@ import { RetrieveChallengeDto } from 'src/utils/dtos/retrieve-challenge.dto';
 import { RetrieveFeedbackDto } from 'src/utils/dtos/retrieve-feedback.dto';
 import { RetrieveThemeDto } from 'src/utils/dtos/retrieve-theme.dto';
 import { RetrieveWeekDto } from 'src/utils/dtos/retrieve-week.dto';
+import { CreateModuleDto } from './dtos/create.dto';
+import { RetrieveModuleDto } from './dtos/retrieve.dto';
 
 @Injectable()
 export class ModulesService {
@@ -133,5 +135,14 @@ export class ModulesService {
     return module.week[0].feeback.map((feeback) =>
       plainToInstance(RetrieveFeedbackDto, feeback),
     );
+  }
+
+  async createModule(input: CreateModuleDto): Promise<RetrieveModuleDto> {
+    const module = await this.prisma.module.create({
+      data: {
+        ...input,
+      },
+    });
+    return plainToInstance(RetrieveModuleDto, module);
   }
 }

@@ -1,8 +1,10 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { RetrieveChallengeDto } from 'src/utils/dtos/retrieve-challenge.dto';
 import { RetrieveFeedbackDto } from 'src/utils/dtos/retrieve-feedback.dto';
 import { RetrieveThemeDto } from 'src/utils/dtos/retrieve-theme.dto';
 import { RetrieveWeekDto } from 'src/utils/dtos/retrieve-week.dto';
+import { CreateModuleDto } from './dtos/create.dto';
+import { RetrieveModuleDto } from './dtos/retrieve.dto';
 import { ModulesService } from './modules.service';
 
 @Controller('modules')
@@ -45,5 +47,10 @@ export class ModulesController {
     @Param('weekId') weekId: string,
   ): Promise<RetrieveFeedbackDto[]> {
     return await this.modulesService.getWeekFeedbacks(moduleId, weekId);
+  }
+
+  @Post()
+  async createModule(input: CreateModuleDto): Promise<RetrieveModuleDto> {
+    return await this.modulesService.createModule(input);
   }
 }

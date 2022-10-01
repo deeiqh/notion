@@ -3,6 +3,7 @@ import { plainToInstance } from 'class-transformer';
 import { RetrieveModuleDto } from 'src/modules/dtos/retrieve.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { RetrieveFeedbackDto } from 'src/utils/dtos/retrieve-feedback.dto';
+import { CreateUserDto } from './dto/request/create.dto';
 import { RetrieveUserDto } from './dto/response/retrieve.dto';
 
 @Injectable()
@@ -118,5 +119,14 @@ export class UsersService {
     );
 
     return feedbacks;
+  }
+
+  async createUser(input: CreateUserDto): Promise<RetrieveUserDto> {
+    const user = this.prisma.user.create({
+      data: {
+        ...input,
+      },
+    });
+    return plainToInstance(RetrieveUserDto, user);
   }
 }
