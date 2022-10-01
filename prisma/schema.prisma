@@ -9,3 +9,123 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  uuid String @id() @default(uuid())
+  role UserRole @default(NERD)
+  name String
+  technology String
+  email String
+  password String
+  programId String
+  module Module[]
+
+  program Program @relation(fields: [programId], references: [uuid])
+  feedbackFrom Feedback[] @relation("from")
+  feedbackTo Feedback[] @relation("to")
+
+}
+
+model Program {
+  uuid String @id() @default(uuid())
+  user User[]
+  module Module[]
+  title String
+  description String
+}
+
+model Module {
+  uuid String @id() @default(uuid())
+  user User[]
+  program Program[]
+  week Week[]
+  isCompleted Boolean
+  evaluationId String @unique
+  title String
+  description String
+
+  evaluation Evaluation @relation(fields: [evaluationId], references: [uuid])
+}
+
+model Week {
+  uuid String @id() @default(uuid())
+  moduleId String
+  name String
+  theme Theme[]
+  feeback Feedback[]
+  isCompleted Boolean
+
+  module Module @relation(fields: [moduleId], references: [uuid])
+}
+
+model Challenge {
+  uuid String @id() @default(uuid())
+  assignment Assignment[]
+  evaluationId String @unique
+
+  evaluation Evaluation @relation(fields: [evaluationId], references: [uuid])
+}
+
+model Evaluation {
+  uuid String @id() @default(uuid())
+  weight Int? @default(1)
+  score Int?
+  maxScore Int?
+  feedback Feedback[]
+
+  module Module?
+  challenge Challenge?
+  assignment Assignment?
+  theme Theme?
+}
+
+model Feedback {
+  uuid String @id() @default(uuid())
+  category String
+  content String
+  state String
+  type String
+  userFromId String
+  userToId String
+  evaluationId String
+  weekId String
+  comment Comment[]
+
+  userFrom User @relation("from", fields: [userFromId], references: [uuid])
+  userTo User @relation("to", fields: [userToId], references: [uuid])
+  evaluation Evaluation? @relation(fields: [evaluationId], references: [uuid])
+  week Week @relation(fields: [weekId], references: [uuid])
+}
+
+model Theme {
+  uuid String @id() @default(uuid())
+  weekId String
+  name String
+  evaluationId String @unique
+  link String
+
+  week Week @relation(fields: [weekId], references: [uuid])
+  evaluation Evaluation @relation(fields: [evaluationId], references: [uuid])
+}
+
+model Assignment {
+  uuid String @id() @default(uuid())
+  challengeId String
+  description String
+  evaluationId String @unique
+
+  challenge Challenge @relation(fields: [challengeId], references: [uuid])
+  evaluation Evaluation @relation(fields: [evaluationId], references: [uuid])
+}
+
+model Comment {
+  uuid String @id() @default(uuid())
+  feedbackId String
+
+  feedback Feedback @relation(fields: [feedbackId], references: [uuid])
+}
+
+enum UserRole {
+  NERD
+  MENTOR
+}
