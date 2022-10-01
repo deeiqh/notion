@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { RetrieveAssignmentDto } from 'src/utils/dtos/retrieve-assignment.dto';
 import { RetrieveChallengeDto } from 'src/utils/dtos/retrieve-challenge.dto';
 import { RetrieveFeedbackDto } from 'src/utils/dtos/retrieve-feedback.dto';
 import { RetrieveThemeDto } from 'src/utils/dtos/retrieve-theme.dto';
@@ -39,6 +40,14 @@ export class ModulesController {
     @Param('weekId') weekId: string,
   ): Promise<RetrieveChallengeDto> {
     return await this.modulesService.getWeekChallenge(moduleId, weekId);
+  }
+
+  @Get(':moduleId/weeks/:weekId/challenge/assignments')
+  async getChallengeAssignments(
+    @Param('moduleId') moduleId: string,
+    @Param('weekId') weekId: string,
+  ): Promise<RetrieveAssignmentDto[]> {
+    return await this.modulesService.getChallengeAssignments(moduleId, weekId);
   }
 
   @Get(':moduleId/weeks/:weekId/feedbacks')

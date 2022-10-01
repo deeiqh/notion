@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { RetrieveAssignmentDto } from 'src/utils/dtos/retrieve-assignment.dto';
 import { RetrieveChallengeDto } from 'src/utils/dtos/retrieve-challenge.dto';
 import { RetrieveFeedbackDto } from 'src/utils/dtos/retrieve-feedback.dto';
 import { RetrieveThemeDto } from 'src/utils/dtos/retrieve-theme.dto';
@@ -144,5 +145,38 @@ export class ModulesService {
       },
     });
     return plainToInstance(RetrieveModuleDto, module);
+  }
+
+  async getChallengeAssignments(
+    moduleId: string,
+    weekId: string,
+  ): Promise<RetrieveAssignmentDto[]> {
+    const module = await this.prisma.module.findUnique({
+      where: {
+        uuid: moduleId,
+      },
+      select: {
+        week: {
+          where: {
+            uuid: weekId,
+          },
+          select: {
+            challenge: {
+              select: {
+                assignment: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!module) {
+      throw new NotFoundException('Module not found');
+    }
+
+    return module.week[0].challenge.assignment.map((assignment) =>
+      plainToInstance(RetrieveAssignmentDto, assignment),
+    );
   }
 }
