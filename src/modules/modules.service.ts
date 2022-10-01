@@ -179,4 +179,13 @@ export class ModulesService {
       plainToInstance(RetrieveAssignmentDto, assignment),
     );
   }
+
+  async getModule(moduleId: string): Promise<RetrieveModuleDto> {
+    const module = this.prisma.module.findUnique({
+      where: {
+        uuid: moduleId,
+      },
+    });
+    return plainToInstance(RetrieveModuleDto, module);
+  }
 }

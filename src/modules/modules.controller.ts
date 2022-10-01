@@ -12,6 +12,13 @@ import { ModulesService } from './modules.service';
 export class ModulesController {
   constructor(private modulesService: ModulesService) {}
 
+  @Get(':moduleId')
+  async getModule(
+    @Param('moduleId') moduleId: string,
+  ): Promise<RetrieveModuleDto> {
+    return await this.modulesService.getModule(moduleId);
+  }
+
   @Get(':moduleId/feedback')
   async getModuleFeedback(
     @Param('moduleId') moduleId: string,
