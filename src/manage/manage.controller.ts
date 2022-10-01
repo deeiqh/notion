@@ -17,7 +17,7 @@ export class ManageController {
 
   @Get('evaluation/:evaluationId')
   async getEvaluation(@Param('evaluationId') evaluationId: any) {
-    await this.managerService.getEvaluation(evaluationId);
+    return await this.managerService.getEvaluation(evaluationId);
   }
 
   // @Get('actualWeek')

@@ -43,6 +43,7 @@ export class ManageService {
         uuid: evaluationId,
       },
     });
+    console.log('AAAAA', plainToInstance(RetrieveEvaluationDto, evaluation));
     return plainToInstance(RetrieveEvaluationDto, evaluation);
   }
 
